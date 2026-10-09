@@ -3,8 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Geronfir — Android-only Developer</title>
-<meta name="description" content="Android-only developer. I build, test and ship real software from a phone — Termux, proot, Kotlin, Python, Linux, CI. No laptop, no PC.">
+<title>Geronfir — Android &amp; Linux-tooling developer (no laptop)</title>
+<meta name="description" content="Geronfir — Android/Kotlin and Linux-tooling developer. I build, test and ship real apps from an Android phone: Termux, proot, tmux, Jetpack Glance, GitHub Actions. No laptop, no PC.">
+<meta name="author" content="Geronfir">
+<meta name="theme-color" content="#0d1117">
+<link rel="canonical" href="https://geronfir.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Geronfir — Android &amp; Linux-tooling developer (no laptop)">
+<meta property="og:description" content="I build, test and ship real apps from an Android phone: Termux, proot, tmux, Kotlin, GitHub Actions. No laptop, no PC.">
+<meta property="og:url" content="https://geronfir.github.io/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1117'/%3E%3Ctext x='50%25' y='54%25' font-family='monospace' font-size='38' font-weight='700' fill='%2358a6ff' text-anchor='middle' dominant-baseline='middle'%3EG%3C/text%3E%3C/svg%3E">
 <style>
   :root{
     --bg:#0d1117; --panel:#161b22; --border:#30363d;
@@ -35,6 +44,10 @@
     font-size:.75rem;color:var(--muted);border:1px solid var(--border);
     border-radius:999px;padding:2px 10px;
   }
+  .case h3{font-size:.98rem;margin-bottom:10px;color:var(--fg)}
+  .case .row{display:flex;gap:10px;margin:6px 0;font-size:.92rem;color:var(--muted)}
+  .case .k{flex:0 0 84px;color:var(--accent);font-weight:600}
+  .case .k.res{color:var(--accent2)}
   .stack{display:flex;flex-wrap:wrap;gap:8px;color:var(--muted)}
   .stack span{border:1px solid var(--border);border-radius:6px;padding:3px 10px;font-size:.85rem}
   footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--border);
@@ -50,12 +63,13 @@
 
   <header>
     <h1>Geronfir</h1>
-    <div class="tagline">Android-only developer — no laptop, no PC.</div>
+    <div class="tagline">Android &amp; Linux-tooling developer — no laptop, no PC.</div>
     <p class="lede">
       I build, test and ship real software from an Android phone: a full Linux
       environment in Termux, a persistent tmux workspace, and GitHub Actions as
-      my build machine. Everything I ship is written, compiled and released from
-      that phone — and the constraints make the work sharper, not weaker.
+      my build machine. Everything I ship is written, compiled, tested and
+      released from that phone — and the constraints make the work sharper, not
+      weaker.
     </p>
   </header>
 
@@ -63,11 +77,13 @@
 
   <a href="https://github.com/Geronfir/word-clock-widget" style="text-decoration:none">
   <div class="card">
-    <h3>word-clock-widget</h3>
+    <h3>word-clock-widget &nbsp;<span class="tag">v1.0</span></h3>
     <p>
       An Android home-screen widget that spells the time in words instead of
-      digits. Pure-Kotlin, fully unit-tested engine with no Android dependency;
-      battery-friendly, offline-first, lifecycle-safe. Built and released through CI.
+      digits. The time-to-words engine is pure Kotlin with <strong>no Android
+      imports</strong>, so all <strong>71 unit tests run on a plain JVM</strong>
+      in CI — no emulator. Jetpack Glance, offline-first, battery-friendly, no
+      background service.
     </p>
     <div class="tags">
       <span class="tag">Kotlin</span>
@@ -97,6 +113,16 @@
   </div>
   </a>
 
+  <h2>Case study — word-clock-widget</h2>
+
+  <div class="card case">
+    <h3>Shipping a real Android app with no laptop</h3>
+    <div class="row"><span class="k">Problem</span><span>Android resource compilation needs glibc tools (aapt2) that crash on Android's bionic libc — the phone cannot build an APK.</span></div>
+    <div class="row"><span class="k">Decision</span><span>Stop treating the phone as the build machine. Push code, let GitHub Actions compile, sign and release, then pull the APK back. Keep all time logic in a pure-Kotlin engine with zero Android imports.</span></div>
+    <div class="row"><span class="k">Result</span><span>71 JVM unit tests (including all 1,440 minutes of a day, DST and leap-day edges) run in CI with no emulator, and a signed <strong>v1.0.0</strong> APK is built and released straight from the phone.</span></div>
+    <div class="row"><span class="k res">Proof</span><span><a href="https://github.com/Geronfir/word-clock-widget/releases">releases</a> · <a href="https://github.com/Geronfir/word-clock-widget/actions/workflows/build.yml">CI</a> · <a href="https://github.com/Geronfir/word-clock-widget/blob/main/docs/DECISIONS.md">design decisions</a></span></div>
+  </div>
+
   <h2>Stack</h2>
   <div class="stack">
     <span>Kotlin</span><span>Android</span><span>Compose / Glance</span>
@@ -113,7 +139,7 @@
 
   <h2>Contact</h2>
   <p>
-    <a href="mailto:whichrizy@gmail.com">whichrizy@gmail.com</a> ·
+    <a href="mailto:gamergeronfir@gmail.com">gamergeronfir@gmail.com</a> ·
     <a href="https://github.com/Geronfir">GitHub</a>
   </p>
 
